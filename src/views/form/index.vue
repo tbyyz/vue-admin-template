@@ -20,25 +20,28 @@
         </el-col>
       </el-form-item>
       <el-form-item label="Instant delivery">
-        <el-switch v-model="form.delivery" />
+        <!-- <el-switch v-model="form.delivery" @change="changedisabled" /> -->
+        <el-switch v-model="form.delivery"/>
       </el-form-item>
-      <el-form-item label="Activity type">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox label="Online activities" name="type" />
-          <el-checkbox label="Promotion activities" name="type" />
-          <el-checkbox label="Offline activities" name="type" />
-          <el-checkbox label="Simple brand exposure" name="type" />
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="Resources">
-        <el-radio-group v-model="form.resource">
-          <el-radio label="Sponsor" />
-          <el-radio label="Venue" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="Activity form">
-        <el-input v-model="form.desc" type="textarea" />
-      </el-form-item>
+      <!-- <div v-show="isShow"> -->
+        <el-form-item label="Activity type" v-if="form.delivery == false">
+          <el-checkbox-group v-model="form.type">
+            <el-checkbox label="Online activities" name="type" />
+            <el-checkbox label="Promotion activities" name="type" />
+            <el-checkbox label="Offline activities" name="type" />
+            <el-checkbox label="Simple brand exposure" name="type" />
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="Resources" v-if="form.delivery == false">
+          <el-radio-group v-model="form.resource">
+            <el-radio label="Sponsor" />
+            <el-radio label="Venue" />
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="Activity form" v-if="form.delivery == false">
+          <el-input v-model="form.desc" type="textarea" />
+        </el-form-item>
+      <!-- </div> -->
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Create</el-button>
         <el-button @click="onCancel">Cancel</el-button>
@@ -60,7 +63,8 @@ export default {
         type: [],
         resource: '',
         desc: ''
-      }
+      },
+      // isShow:false
     }
   },
   methods: {
@@ -72,7 +76,10 @@ export default {
         message: 'cancel!',
         type: 'warning'
       })
-    }
+    },
+    // changedisabled(){
+    //   this.isShow=!this.isShow
+    // }
   }
 }
 </script>
@@ -82,4 +89,3 @@ export default {
   text-align: center;
 }
 </style>
-
